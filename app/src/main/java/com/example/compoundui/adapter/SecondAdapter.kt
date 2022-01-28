@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.compoundui.R
-import com.example.compoundui.model.Label
+import com.example.compoundui.model.Content
+import com.example.compoundui.model.Tag
 
-class SecondAdapter(var list: ArrayList<Label> = arrayListOf()) :
+class SecondAdapter() :
     RecyclerView.Adapter<SecondAdapter.SecondViewHolder>() {
 
 
@@ -18,15 +19,15 @@ class SecondAdapter(var list: ArrayList<Label> = arrayListOf()) :
     }
 
     override fun onBindViewHolder(holder: SecondViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(Tag.lab1[position])
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = Tag.lab1.size
 
     inner class SecondViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val label = itemView.findViewById<TextView>(R.id.txt_label)
-        fun bind(lab: Label) {
+        fun bind(lab: Content.Label1) {
 
             label.text = lab.tag
         }

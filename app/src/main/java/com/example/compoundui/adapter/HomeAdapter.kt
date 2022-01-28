@@ -1,5 +1,6 @@
 package com.example.compoundui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.compoundui.fragment.FirstFragment
 import com.example.compoundui.fragment.SecondFragment
 import com.example.compoundui.fragment.ThirdFragment
 import com.example.compoundui.model.First
+import com.example.compoundui.model.Label
 import com.example.compoundui.model.Second
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,20 +31,13 @@ class HomeAdapter() :
         private const val VIEW_RV_2 = 3
     }
 
-    var myData = mutableListOf<Any>()
-        set(value) {
-            field = value
-
-        }
-
-    private val differ = AsyncListDiffer(this, DiffCallback)
-
-    init {
-        differ.submitList(myData)
-    }
-
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        return when (position) {
+            0 -> VIEW_RV_1
+            1 -> VIEW_PAGER
+            2 -> VIEW_RV_2
+            else -> throw IllegalStateException("Unknown view type at position $position")
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -68,18 +63,27 @@ class HomeAdapter() :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as FirstViewHolder).bind(differ.currentList[position] as First)
+        when (holder) {
+            is FirstViewHolder -> {
+                holder.bind()
+            }
+            is TagViewHolder -> {
+                holder.bind()
+            }
+            is SecondViewHolder -> {
+                holder.bind()
+            }
+
+        }
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int =3
 
 
     class FirstViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rv1 = itemView.findViewById<RecyclerView>(R.id.rv_first)
-        fun bind(fir: First) {
-            val firstAdapter = FirstAdapter(fir.labelList)
+        fun bind() {
+            val firstAdapter = FirstAdapter()
 
             rv1.apply {
                 adapter = firstAdapter
@@ -118,8 +122,8 @@ class HomeAdapter() :
 
     class SecondViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rv2 = itemView.findViewById<RecyclerView>(R.id.rv_second)
-        fun bind(sec: Second) {
-            val secondAdapter = SecondAdapter(sec.labList)
+        fun bind() {
+            val secondAdapter = FirstAdapter()
 
             rv2.apply {
                 adapter = secondAdapter
@@ -128,16 +132,6 @@ class HomeAdapter() :
         }
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when {
-                else -> false
-            }
-        }
-
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-        }
-    }
 }
 
 
