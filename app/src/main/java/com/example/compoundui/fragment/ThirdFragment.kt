@@ -30,8 +30,7 @@ class ThirdFragment : Fragment() {
             Label("第三事項"),
             Label("第四事項"),
             Label("第五事項"),
-            Label("第六事項"),
-            Label("第七事項")
+            Label("第六事項")
         )
 
         val otherAdapter = OtherAdapter(list)

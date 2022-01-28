@@ -1,13 +1,11 @@
 package com.example.compoundui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -16,9 +14,7 @@ import com.example.compoundui.R
 import com.example.compoundui.fragment.FirstFragment
 import com.example.compoundui.fragment.SecondFragment
 import com.example.compoundui.fragment.ThirdFragment
-import com.example.compoundui.model.First
-import com.example.compoundui.model.Label
-import com.example.compoundui.model.Second
+import com.example.compoundui.model.Tag
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -65,19 +61,25 @@ class HomeAdapter() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is FirstViewHolder -> {
+                val title = holder.itemView.findViewById<TextView>(R.id.txt_title)
+                title.text = Tag.title[position]
                 holder.bind()
+
             }
             is TagViewHolder -> {
+                val title = holder.itemView.findViewById<TextView>(R.id.txt_title)
+                title.text = Tag.title[position]
                 holder.bind()
             }
             is SecondViewHolder -> {
+                val title = holder.itemView.findViewById<TextView>(R.id.txt_title)
+                title.text = Tag.title[position]
                 holder.bind()
             }
-
         }
     }
 
-    override fun getItemCount(): Int =3
+    override fun getItemCount(): Int = 3
 
 
     class FirstViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -123,7 +125,7 @@ class HomeAdapter() :
     class SecondViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rv2 = itemView.findViewById<RecyclerView>(R.id.rv_second)
         fun bind() {
-            val secondAdapter = FirstAdapter()
+            val secondAdapter = SecondAdapter()
 
             rv2.apply {
                 adapter = secondAdapter

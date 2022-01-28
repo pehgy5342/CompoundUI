@@ -19,17 +19,21 @@ class SecondAdapter() :
     }
 
     override fun onBindViewHolder(holder: SecondViewHolder, position: Int) {
-        holder.bind(Tag.lab1[position])
+        holder.bind(Tag.lab2[position])
     }
 
-    override fun getItemCount(): Int = Tag.lab1.size
+    override fun getItemCount(): Int = Tag.lab2.size
 
     inner class SecondViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val label = itemView.findViewById<TextView>(R.id.txt_label)
-        fun bind(lab: Content.Label1) {
+        val title = itemView.findViewById<TextView>(R.id.txt_title)
+        val id = itemView.findViewById<TextView>(R.id.txt_id)
+        val name = itemView.findViewById<TextView>(R.id.txt_name)
 
-            label.text = lab.tag
+        fun bind(lab: Content.Label2) {
+            title.text = lab.title
+            id.text = lab.id
+            name.text = lab.name
         }
     }
 }
